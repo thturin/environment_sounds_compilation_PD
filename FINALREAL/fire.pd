@@ -1,0 +1,488 @@
+#N canvas 967 23 423 252 10;
+#N canvas 0 22 450 300 firegen 0;
+#X obj 101 14 noise~;
+#N canvas 0 23 617 594 crackles 0;
+#X obj 105 41 lop~ 1;
+#X obj 106 62 env~;
+#X obj 105 85 moses 50;
+#X obj 150 111 moses 51;
+#X msg 150 133 bang;
+#X obj 150 155 random 30;
+#X obj 150 177 t f f;
+#X msg 30 193 1 \, 0 \$1;
+#X obj 30 215 line~;
+#X obj 30 237 *~;
+#X obj 30 259 *~;
+#X obj 134 206 * 500;
+#X obj 134 228 + 1500;
+#X obj 82 258 vcf~ 1;
+#X text 197 20 every crackle sounds the same \, to get variation and
+color:;
+#X text 256 34 1 make the decay time of eachcrackle a little different
+;
+#X text 271 49 Gabor period->short sounds have a somewhat different
+property than longer ones. By varying the click duration we change
+it's tone, f 57;
+#X text 219 156 substitute a random number into the decay time of the
+envelope., f 24;
+#X text 247 215 2 we can make the tone of each crackle unique using
+a resonant filter;
+#X obj 28 322 *~, f 11;
+#X obj 28 344 outlet~;
+#X obj 40 24 inlet~;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 1 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 6 1 11 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 8 0 9 1;
+#X connect 9 0 10 0;
+#X connect 9 0 10 1;
+#X connect 10 0 19 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 1;
+#X connect 13 0 19 1;
+#X connect 19 0 20 0;
+#X connect 21 0 13 0;
+#X connect 21 0 0 0;
+#X restore 20 98 pd crackles;
+#N canvas 634 28 596 332 hissing 0;
+#X text 234 37 Continue applying the squaring technique to increase
+dynamic range. We increase the expansion to the 4th power by squaring
+again. This time the signal almost vanishes \, so we need to boost
+it again \, by ten times., f 53;
+#X obj 68 69 hip~ 1000;
+#X obj 154 71 lop~ 1;
+#X obj 154 93 *~ 10;
+#X obj 154 115 *~;
+#X obj 154 137 *~;
+#X obj 102 208 *~, f 5;
+#X text 230 182 instead of calculating scaling values sometimes you
+must find the sweet spot of a function by hand. Use sliders to fine
+tune the domain and range before fixing these values in code, f 53
+;
+#X obj 154 159 *~ 600;
+#X obj 124 24 inlet~;
+#X obj 94 267 outlet~;
+#X connect 1 0 6 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 4 1;
+#X connect 4 0 5 0;
+#X connect 4 0 5 1;
+#X connect 5 0 8 0;
+#X connect 6 0 10 0;
+#X connect 8 0 6 1;
+#X connect 9 0 1 0;
+#X connect 9 0 2 0;
+#X restore 122 105 pd hissing;
+#N canvas 0 22 576 223 lapping 0;
+#X text 136 32 frequencies close to zero waste the available dynamic
+range. We remove them with a hip~, f 44;
+#X obj 21 50 bp~ 30 5;
+#X obj 21 72 *~ 100;
+#X obj 21 94 hip~ 25;
+#X obj 21 138 hip~ 25;
+#X obj 21 159 *~ 0.6;
+#X text 168 98 the flame and hiss generator suffer from being a bit
+too lively in dynamics. Sometimes they go over level when played loudly
+\, but when we attenuate them they are too quiet.;
+#X obj 21 116 clip~ -0.9 0.9;
+#X obj 20 10 inlet~;
+#X obj 20 186 outlet~;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 7 0;
+#X connect 4 0 5 0;
+#X connect 5 0 9 0;
+#X connect 7 0 4 0;
+#X connect 8 0 1 0;
+#X restore 206 106 pd lapping;
+#X obj 20 120 *~ 0.2;
+#X obj 122 127 *~ 0.3;
+#X obj 206 128 *~ 0.6;
+#X obj 115 193 outlet~;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 5 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 0;
+#X connect 5 0 7 0;
+#X connect 6 0 7 0;
+#X restore 35 46 pd firegen;
+#N canvas 0 22 450 300 firegen 0;
+#X obj 101 14 noise~;
+#N canvas 0 23 617 594 crackles 0;
+#X obj 105 41 lop~ 1;
+#X obj 106 62 env~;
+#X obj 105 85 moses 50;
+#X obj 150 111 moses 51;
+#X msg 150 133 bang;
+#X obj 150 155 random 30;
+#X obj 150 177 t f f;
+#X msg 30 193 1 \, 0 \$1;
+#X obj 30 215 line~;
+#X obj 30 237 *~;
+#X obj 30 259 *~;
+#X obj 134 206 * 500;
+#X obj 134 228 + 1500;
+#X obj 82 258 vcf~ 1;
+#X text 197 20 every crackle sounds the same \, to get variation and
+color:;
+#X text 256 34 1 make the decay time of eachcrackle a little different
+;
+#X text 271 49 Gabor period->short sounds have a somewhat different
+property than longer ones. By varying the click duration we change
+it's tone, f 57;
+#X text 219 156 substitute a random number into the decay time of the
+envelope., f 24;
+#X text 247 215 2 we can make the tone of each crackle unique using
+a resonant filter;
+#X obj 28 322 *~, f 11;
+#X obj 28 344 outlet~;
+#X obj 40 24 inlet~;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 1 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 6 1 11 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 8 0 9 1;
+#X connect 9 0 10 0;
+#X connect 9 0 10 1;
+#X connect 10 0 19 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 1;
+#X connect 13 0 19 1;
+#X connect 19 0 20 0;
+#X connect 21 0 13 0;
+#X connect 21 0 0 0;
+#X restore 20 98 pd crackles;
+#N canvas 634 28 596 332 hissing 0;
+#X text 234 37 Continue applying the squaring technique to increase
+dynamic range. We increase the expansion to the 4th power by squaring
+again. This time the signal almost vanishes \, so we need to boost
+it again \, by ten times., f 53;
+#X obj 68 69 hip~ 1000;
+#X obj 154 71 lop~ 1;
+#X obj 154 93 *~ 10;
+#X obj 154 115 *~;
+#X obj 154 137 *~;
+#X obj 102 208 *~, f 5;
+#X text 230 182 instead of calculating scaling values sometimes you
+must find the sweet spot of a function by hand. Use sliders to fine
+tune the domain and range before fixing these values in code, f 53
+;
+#X obj 154 159 *~ 600;
+#X obj 124 24 inlet~;
+#X obj 94 267 outlet~;
+#X connect 1 0 6 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 4 1;
+#X connect 4 0 5 0;
+#X connect 4 0 5 1;
+#X connect 5 0 8 0;
+#X connect 6 0 10 0;
+#X connect 8 0 6 1;
+#X connect 9 0 1 0;
+#X connect 9 0 2 0;
+#X restore 122 105 pd hissing;
+#N canvas 0 22 576 223 lapping 0;
+#X text 136 32 frequencies close to zero waste the available dynamic
+range. We remove them with a hip~, f 44;
+#X obj 21 50 bp~ 30 5;
+#X obj 21 72 *~ 100;
+#X obj 21 94 hip~ 25;
+#X obj 21 138 hip~ 25;
+#X obj 21 159 *~ 0.6;
+#X text 168 98 the flame and hiss generator suffer from being a bit
+too lively in dynamics. Sometimes they go over level when played loudly
+\, but when we attenuate them they are too quiet.;
+#X obj 21 116 clip~ -0.9 0.9;
+#X obj 20 10 inlet~;
+#X obj 20 186 outlet~;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 7 0;
+#X connect 4 0 5 0;
+#X connect 5 0 9 0;
+#X connect 7 0 4 0;
+#X connect 8 0 1 0;
+#X restore 206 106 pd lapping;
+#X obj 20 120 *~ 0.2;
+#X obj 122 127 *~ 0.3;
+#X obj 206 128 *~ 0.6;
+#X obj 115 193 outlet~;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 5 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 0;
+#X connect 5 0 7 0;
+#X connect 6 0 7 0;
+#X restore 234 44 pd firegen;
+#N canvas 0 22 450 300 firegen 0;
+#X obj 101 14 noise~;
+#N canvas 0 23 617 594 crackles 0;
+#X obj 105 41 lop~ 1;
+#X obj 106 62 env~;
+#X obj 105 85 moses 50;
+#X obj 150 111 moses 51;
+#X msg 150 133 bang;
+#X obj 150 155 random 30;
+#X obj 150 177 t f f;
+#X msg 30 193 1 \, 0 \$1;
+#X obj 30 215 line~;
+#X obj 30 237 *~;
+#X obj 30 259 *~;
+#X obj 134 206 * 500;
+#X obj 134 228 + 1500;
+#X obj 82 258 vcf~ 1;
+#X text 197 20 every crackle sounds the same \, to get variation and
+color:;
+#X text 256 34 1 make the decay time of eachcrackle a little different
+;
+#X text 271 49 Gabor period->short sounds have a somewhat different
+property than longer ones. By varying the click duration we change
+it's tone, f 57;
+#X text 219 156 substitute a random number into the decay time of the
+envelope., f 24;
+#X text 247 215 2 we can make the tone of each crackle unique using
+a resonant filter;
+#X obj 28 322 *~, f 11;
+#X obj 28 344 outlet~;
+#X obj 40 24 inlet~;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 1 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 6 1 11 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 8 0 9 1;
+#X connect 9 0 10 0;
+#X connect 9 0 10 1;
+#X connect 10 0 19 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 1;
+#X connect 13 0 19 1;
+#X connect 19 0 20 0;
+#X connect 21 0 13 0;
+#X connect 21 0 0 0;
+#X restore 20 98 pd crackles;
+#N canvas 634 28 596 332 hissing 0;
+#X text 234 37 Continue applying the squaring technique to increase
+dynamic range. We increase the expansion to the 4th power by squaring
+again. This time the signal almost vanishes \, so we need to boost
+it again \, by ten times., f 53;
+#X obj 68 69 hip~ 1000;
+#X obj 154 71 lop~ 1;
+#X obj 154 93 *~ 10;
+#X obj 154 115 *~;
+#X obj 154 137 *~;
+#X obj 102 208 *~, f 5;
+#X text 230 182 instead of calculating scaling values sometimes you
+must find the sweet spot of a function by hand. Use sliders to fine
+tune the domain and range before fixing these values in code, f 53
+;
+#X obj 154 159 *~ 600;
+#X obj 124 24 inlet~;
+#X obj 94 267 outlet~;
+#X connect 1 0 6 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 4 1;
+#X connect 4 0 5 0;
+#X connect 4 0 5 1;
+#X connect 5 0 8 0;
+#X connect 6 0 10 0;
+#X connect 8 0 6 1;
+#X connect 9 0 1 0;
+#X connect 9 0 2 0;
+#X restore 122 105 pd hissing;
+#N canvas 0 22 576 223 lapping 0;
+#X text 136 32 frequencies close to zero waste the available dynamic
+range. We remove them with a hip~, f 44;
+#X obj 21 50 bp~ 30 5;
+#X obj 21 72 *~ 100;
+#X obj 21 94 hip~ 25;
+#X obj 21 138 hip~ 25;
+#X obj 21 159 *~ 0.6;
+#X text 168 98 the flame and hiss generator suffer from being a bit
+too lively in dynamics. Sometimes they go over level when played loudly
+\, but when we attenuate them they are too quiet.;
+#X obj 21 116 clip~ -0.9 0.9;
+#X obj 20 10 inlet~;
+#X obj 20 186 outlet~;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 7 0;
+#X connect 4 0 5 0;
+#X connect 5 0 9 0;
+#X connect 7 0 4 0;
+#X connect 8 0 1 0;
+#X restore 206 106 pd lapping;
+#X obj 20 120 *~ 0.2;
+#X obj 122 127 *~ 0.3;
+#X obj 206 128 *~ 0.6;
+#X obj 115 193 outlet~;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 5 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 0;
+#X connect 5 0 7 0;
+#X connect 6 0 7 0;
+#X restore 338 47 pd firegen;
+#X obj 35 68 bp~ 600 0.2;
+#X obj 133 72 bp~ 1200 0.6;
+#X obj 234 66 bp~ 2600 0.4;
+#X obj 338 69 hip~ 1000;
+#N canvas 0 22 450 300 firegen 0;
+#X obj 101 14 noise~;
+#N canvas 0 23 617 594 crackles 0;
+#X obj 105 41 lop~ 1;
+#X obj 106 62 env~;
+#X obj 105 85 moses 50;
+#X obj 150 111 moses 51;
+#X msg 150 133 bang;
+#X obj 150 155 random 30;
+#X obj 150 177 t f f;
+#X msg 30 193 1 \, 0 \$1;
+#X obj 30 215 line~;
+#X obj 30 237 *~;
+#X obj 30 259 *~;
+#X obj 134 206 * 500;
+#X obj 134 228 + 1500;
+#X obj 82 258 vcf~ 1;
+#X text 197 20 every crackle sounds the same \, to get variation and
+color:;
+#X text 256 34 1 make the decay time of eachcrackle a little different
+;
+#X text 271 49 Gabor period->short sounds have a somewhat different
+property than longer ones. By varying the click duration we change
+it's tone, f 57;
+#X text 219 156 substitute a random number into the decay time of the
+envelope., f 24;
+#X text 247 215 2 we can make the tone of each crackle unique using
+a resonant filter;
+#X obj 28 322 *~, f 11;
+#X obj 28 344 outlet~;
+#X obj 40 24 inlet~;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 1 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 6 1 11 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 8 0 9 1;
+#X connect 9 0 10 0;
+#X connect 9 0 10 1;
+#X connect 10 0 19 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 1;
+#X connect 13 0 19 1;
+#X connect 19 0 20 0;
+#X connect 21 0 13 0;
+#X connect 21 0 0 0;
+#X restore 20 98 pd crackles;
+#N canvas 634 28 596 332 hissing 0;
+#X text 234 37 Continue applying the squaring technique to increase
+dynamic range. We increase the expansion to the 4th power by squaring
+again. This time the signal almost vanishes \, so we need to boost
+it again \, by ten times., f 53;
+#X obj 68 69 hip~ 1000;
+#X obj 154 71 lop~ 1;
+#X obj 154 93 *~ 10;
+#X obj 154 115 *~;
+#X obj 154 137 *~;
+#X obj 102 208 *~, f 5;
+#X text 230 182 instead of calculating scaling values sometimes you
+must find the sweet spot of a function by hand. Use sliders to fine
+tune the domain and range before fixing these values in code, f 53
+;
+#X obj 154 159 *~ 600;
+#X obj 124 24 inlet~;
+#X obj 94 267 outlet~;
+#X connect 1 0 6 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 3 0 4 1;
+#X connect 4 0 5 0;
+#X connect 4 0 5 1;
+#X connect 5 0 8 0;
+#X connect 6 0 10 0;
+#X connect 8 0 6 1;
+#X connect 9 0 1 0;
+#X connect 9 0 2 0;
+#X restore 122 105 pd hissing;
+#N canvas 0 22 576 223 lapping 0;
+#X text 136 32 frequencies close to zero waste the available dynamic
+range. We remove them with a hip~, f 44;
+#X obj 21 50 bp~ 30 5;
+#X obj 21 72 *~ 100;
+#X obj 21 94 hip~ 25;
+#X obj 21 138 hip~ 25;
+#X obj 21 159 *~ 0.6;
+#X text 168 98 the flame and hiss generator suffer from being a bit
+too lively in dynamics. Sometimes they go over level when played loudly
+\, but when we attenuate them they are too quiet.;
+#X obj 21 116 clip~ -0.9 0.9;
+#X obj 20 10 inlet~;
+#X obj 20 186 outlet~;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 7 0;
+#X connect 4 0 5 0;
+#X connect 5 0 9 0;
+#X connect 7 0 4 0;
+#X connect 8 0 1 0;
+#X restore 206 106 pd lapping;
+#X obj 20 120 *~ 0.2;
+#X obj 122 127 *~ 0.3;
+#X obj 206 128 *~ 0.6;
+#X obj 115 193 outlet~;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 1 0 4 0;
+#X connect 2 0 5 0;
+#X connect 3 0 6 0;
+#X connect 4 0 7 0;
+#X connect 5 0 7 0;
+#X connect 6 0 7 0;
+#X restore 135 44 pd firegen;
+#X obj 211 152 *~ 0.2;
+#X obj 211 174 throw~ fire;
+#X connect 0 0 3 0;
+#X connect 1 0 5 0;
+#X connect 2 0 6 0;
+#X connect 3 0 8 0;
+#X connect 4 0 8 0;
+#X connect 5 0 8 0;
+#X connect 6 0 8 0;
+#X connect 7 0 4 0;
+#X connect 8 0 9 0;
